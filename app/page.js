@@ -19,16 +19,13 @@ function MyTimer({ initialMinutes }) {
   const handleRestart = () => {
     const time = new Date();
     time.setSeconds(time.getSeconds() + inputMinutes * 60);
-    restart(time, false); // restart with autoStart = false
+    restart(time, false); 
   };
 
   const handleStart = () => {
-    if(initialMinutes !== inputMinutes){
-      handleRestart()
-      start();
-    } else {
-      start();
-    }
+    const time = new Date();
+    time.setSeconds(time.getSeconds() + inputMinutes * 60);
+    restart(time, true); 
   }
 
   //DETECTS FULLSCREEN MODE
@@ -63,21 +60,21 @@ function MyTimer({ initialMinutes }) {
         {!isFullscreen && (  
           <div>
             <div className="space-x-12">
-              <button onClick={handleStart} className="bg-green-400 px-5 py-2 rounded-md">
+              <button onClick={handleStart} className="bg-green-400 px-5 py-2 rounded-md transition-all active:scale-90 cursor-pointer hover:opacity-90">
                 Start
               </button>
               <button
                 onClick={pause}
-                className="bg-yellow-400 px-5 py-2 rounded-md"
+                className="bg-yellow-400 px-5 py-2 rounded-md transition-all active:scale-90 cursor-pointer hover:opacity-90"
               >
                 Pause
               </button>
-              <button onClick={resume} className="bg-red-400 px-5 py-2 rounded-md">
+              <button onClick={resume} className="bg-red-400 px-5 py-2 rounded-md transition-all active:scale-90 cursor-pointer hover:opacity-90">
                 Resume
               </button>
               <button
                 onClick={handleRestart}
-                className="bg-gray-400 px-5 py-2 rounded-md"
+                className="bg-gray-400 px-5 py-2 rounded-md transition-all active:scale-90 cursor-pointer hover:opacity-90"
               >
                 Restart
               </button>
@@ -86,6 +83,7 @@ function MyTimer({ initialMinutes }) {
             <div className="mt-5">
               <input
                 type="number"
+                min={0}
                 value={inputMinutes}
                 onChange={(e) => setInputMinutes(Number(e.target.value))}
                 placeholder="Enter minutes"
